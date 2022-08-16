@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { useContext } from 'react'
 import trianglify from 'trianglify'
-import { BACKGROUND_HEIGHT, BACKGROUND_WIDTH } from 'modules/config/constants'
-import { ConfigContext } from 'modules/patternConfig/patternConfigContext'
+import { BACKGROUND_HEIGHT, BACKGROUND_WIDTH } from '@/modules/config/constants'
+import { ConfigContext } from '@/modules/patternConfig/patternConfigContext'
 
 const TrianglifyRenderer = () => {
   const { cellSize } = useContext(ConfigContext)

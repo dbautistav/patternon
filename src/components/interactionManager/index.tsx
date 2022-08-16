@@ -5,8 +5,8 @@ import React, {
 import { useDrag } from '@use-gesture/react'
 import { debounce } from 'lodash'
 import * as d3 from 'd3'
-import { BACKGROUND_WIDTH } from 'modules/config/constants'
-import { ConfigContext } from 'modules/patternConfig/patternConfigContext'
+import { BACKGROUND_WIDTH } from '@/modules/config/constants'
+import { ConfigContext } from '@/modules/patternConfig/patternConfigContext'
 import { COORDS } from './models'
 
 const MIN_CELL_SIZE = 30
