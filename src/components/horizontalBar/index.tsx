@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { useContext } from 'react'
 import * as d3 from 'd3'
-import { ConfigContext } from '@/modules/patternConfig/patternConfigContext'
-import { BACKGROUND_HEIGHT, BACKGROUND_WIDTH } from '@/modules/config/constants'
+import { BACKGROUND_HEIGHT, BACKGROUND_WIDTH } from '../../modules/config/constants'
+import { ConfigContext } from '../../modules/patternConfig/patternConfigContext'
 
 const HorizontalBar = () => {
   const { cellSize } = useContext(ConfigContext)
