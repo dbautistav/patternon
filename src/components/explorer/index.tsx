@@ -1,7 +1,7 @@
 import * as React from 'react'
-import TrianglifyRenderer from '../renderers/trianglify'
-import HorizontalBar from '../horizontalBar'
-import GestureInteractionManager from '../interactionManager'
+import TrianglifyRenderer from 'components/renderers/trianglify'
+import HorizontalBar from 'components/horizontalBar'
+import GestureInteractionManager from 'components/interactionManager'
 
 const Explorer = () => {
   return (

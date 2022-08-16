@@ -1,7 +1,8 @@
 import * as React from 'react'
 import { useContext } from 'react'
 import trianglify from 'trianglify'
-import { ConfigContext } from '../../../modules/patternConfig/patternConfigContext'
+import { BACKGROUND_HEIGHT, BACKGROUND_WIDTH } from 'modules/config/constants'
+import { ConfigContext } from 'modules/patternConfig/patternConfigContext'
 
 const TrianglifyRenderer = () => {
   const { cellSize } = useContext(ConfigContext)
@@ -10,8 +11,8 @@ const TrianglifyRenderer = () => {
   React.useEffect(() => {
     console.log('.. cellSize', cellSize)
     const pattern = trianglify({
-      width: window.innerWidth,
-      height: window.innerHeight,
+      width: BACKGROUND_WIDTH,
+      height: BACKGROUND_HEIGHT,
       cellSize
     })
     pattern.toCanvas(canvas)
@@ -19,8 +20,8 @@ const TrianglifyRenderer = () => {
 
   return (
     <canvas
-      width={window.innerWidth}
-      height={window.innerHeight}
+      width={BACKGROUND_WIDTH}
+      height={BACKGROUND_HEIGHT}
       ref={(canvasRef) => {
         setCanvas(canvasRef)
       }}

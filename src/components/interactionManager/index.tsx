@@ -5,13 +5,14 @@ import React, {
 import { useDrag } from '@use-gesture/react'
 import { debounce } from 'lodash'
 import * as d3 from 'd3'
-import { ConfigContext } from '../../modules/patternConfig/patternConfigContext'
+import { BACKGROUND_WIDTH } from 'modules/config/constants'
+import { ConfigContext } from 'modules/patternConfig/patternConfigContext'
 import { COORDS } from './models'
 
 const MIN_CELL_SIZE = 30
 const MAX_CELL_SIZE = 80
 const CELL_SIZE_INTERVAL = [MIN_CELL_SIZE, MAX_CELL_SIZE]
-const SCREEN_INTERVAL = [0, window.innerWidth]
+const SCREEN_INTERVAL = [0, BACKGROUND_WIDTH]
 
 const px2CellSizeScale = d3.scaleLinear().domain(SCREEN_INTERVAL).range(CELL_SIZE_INTERVAL)
 const cellSize2PxScale = d3.scaleLinear().domain(CELL_SIZE_INTERVAL).range(SCREEN_INTERVAL)
@@ -53,7 +54,11 @@ const GestureInteractionManager = (props) => {
       <div
         id="gestures-container"
         style={{
-          touchAction: 'none',
+          margin: '3px',
+
+          // It is recommended to add `touch-action: 'none'` so that the drag gesture behaves correctly on touch-enabled devices.
+          // For more information read this: https://use-gesture.netlify.app/docs/extras/#touch-action.
+          touchAction: 'none'
         }}
         {// @ts-ignore
           ...bind()

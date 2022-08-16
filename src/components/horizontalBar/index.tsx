@@ -1,7 +1,8 @@
 import * as React from 'react'
 import { useContext } from 'react'
 import * as d3 from 'd3'
-import { ConfigContext } from '../../modules/patternConfig/patternConfigContext'
+import { ConfigContext } from 'modules/patternConfig/patternConfigContext'
+import { BACKGROUND_HEIGHT, BACKGROUND_WIDTH } from 'modules/config/constants'
 
 const HorizontalBar = () => {
   const { cellSize } = useContext(ConfigContext)
@@ -15,8 +16,8 @@ const HorizontalBar = () => {
   }
 
   const _renderChart = (): void => {
-    const svgWidth = window.innerWidth
-    const svgHeight = window.innerHeight / 30
+    const svgWidth = BACKGROUND_WIDTH
+    const svgHeight = BACKGROUND_HEIGHT / 30
 
     const svg = d3
       .select('svg')
