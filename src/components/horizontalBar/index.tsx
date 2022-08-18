@@ -1,11 +1,14 @@
 import * as React from 'react'
-import { useContext } from 'react'
+import {
+  useCallback,
+  useContext
+} from 'react'
 import * as d3 from 'd3'
 import { BACKGROUND_HEIGHT, BACKGROUND_WIDTH } from '../../modules/config/constants'
 import { ConfigContext } from '../../modules/patternConfig/patternConfigContext'
 
 const HorizontalBar = () => {
-  const { cellSize } = useContext(ConfigContext)
+  const { cellSize, cellSize2PxScale } = useContext(ConfigContext)
 
   const data = React.useMemo(() => [cellSize], [cellSize])
 
@@ -15,7 +18,7 @@ const HorizontalBar = () => {
     d3.selectAll(`svg#${containerId} > rect`).remove()
   }
 
-  const _renderChart = (): void => {
+  const _renderChart = useCallback((): void => {
     const svgWidth = BACKGROUND_WIDTH
     const svgHeight = BACKGROUND_HEIGHT / 30
 
@@ -34,27 +37,44 @@ const HorizontalBar = () => {
       .enter()
       .append('rect')
       .attr('height', barHeight - barPadding)
-      .attr('width', (d) => 3 * d)
+      .attr('width', (d) => cellSize2PxScale(d))
       .attr('transform', (d, i) => {
         const translate = [0, barHeight * i]
         return `translate(${translate})`
       })
-  }
+  }, [
+    data,
+    cellSize2PxScale
+  ])
 
   React.useEffect(() => {
     if (!data || data.length === 0) return
 
     _cleanUp()
     _renderChart()
-  }, [data])
+  }, [
+    data,
+    _renderChart
+  ])
 
   return (
-    <svg
-      id={containerId}
-      style={{
-        position: 'absolute',
-      }}
-    />
+    <div>
+      <svg
+        id={containerId}
+        style={{
+          position: 'absolute'
+        }}
+      />
+      <span
+        style={{
+          position: 'absolute',
+          right: '20px',
+          top: '35px'
+        }}
+      >
+        {cellSize}
+      </span>
+    </div>
   )
 }
 

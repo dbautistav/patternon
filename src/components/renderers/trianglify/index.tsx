@@ -9,7 +9,6 @@ const TrianglifyRenderer = () => {
   const [canvas, setCanvas] = React.useState<HTMLCanvasElement | null>(null)
 
   React.useEffect(() => {
-    console.log('.. cellSize', cellSize)
     const pattern = trianglify({
       width: BACKGROUND_WIDTH,
       height: BACKGROUND_HEIGHT,
