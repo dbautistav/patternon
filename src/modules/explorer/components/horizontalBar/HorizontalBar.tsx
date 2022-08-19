@@ -4,10 +4,9 @@ import {
   useContext
 } from 'react'
 import * as d3 from 'd3'
-import { BACKGROUND_HEIGHT, BACKGROUND_WIDTH } from '../../modules/config/constants'
-import { ConfigContext } from '../../modules/patternConfig/patternConfigContext'
+import { ConfigContext } from '../../hooks/patternConfigContext'
 
-const HorizontalBar = () => {
+const HorizontalBar = ({ config: { backgroundHeight, backgroundWidth } }) => {
   const { cellSize, cellSize2PxScale } = useContext(ConfigContext)
 
   const data = React.useMemo(() => [cellSize], [cellSize])
@@ -19,8 +18,8 @@ const HorizontalBar = () => {
   }
 
   const _renderChart = useCallback((): void => {
-    const svgWidth = BACKGROUND_WIDTH
-    const svgHeight = BACKGROUND_HEIGHT / 30
+    const svgWidth = backgroundWidth
+    const svgHeight = backgroundHeight / 30
 
     const svg = d3
       .select('svg')
@@ -43,8 +42,10 @@ const HorizontalBar = () => {
         return `translate(${translate})`
       })
   }, [
-    data,
-    cellSize2PxScale
+    backgroundHeight,
+    backgroundWidth,
+    cellSize2PxScale,
+    data
   ])
 
   React.useEffect(() => {

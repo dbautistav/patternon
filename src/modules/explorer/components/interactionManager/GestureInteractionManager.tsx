@@ -1,24 +1,33 @@
 import React, {
+  useCallback,
   useEffect,
+  useMemo,
   useState
 } from 'react'
 import { useDrag } from '@use-gesture/react'
 import { debounce } from 'lodash'
 import * as d3 from 'd3'
-import { BACKGROUND_WIDTH } from '../../modules/config/constants'
-import { ConfigContext } from '../../modules/patternConfig/patternConfigContext'
+import { ConfigContext } from '../../hooks/patternConfigContext'
 import { COORDS } from './models'
 
 const MIN_CELL_SIZE = 30
 const MAX_CELL_SIZE = 1003
-const SCREEN_INTERVAL = [0, BACKGROUND_WIDTH]
 
-const px2CellSizeScale = d3.scaleLinear().domain(SCREEN_INTERVAL).range([MIN_CELL_SIZE, MAX_CELL_SIZE / 2])
-const cellSize2PxScale = d3.scaleLinear().domain([MIN_CELL_SIZE, MAX_CELL_SIZE]).range(SCREEN_INTERVAL)
-
-const GestureInteractionManager = (props) => {
+const GestureInteractionManager = ({ config, children }) => {
   const [cellSize, setCellSize] = useState<number>(75)
   const [gestureState, setGestureState] = useState(null)
+
+  const SCREEN_INTERVAL = useMemo(() => [0, config.backgroundWidth], [config.backgroundWidth])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const px2CellSizeScale = useCallback(
+    d3.scaleLinear().domain(SCREEN_INTERVAL).range([MIN_CELL_SIZE, MAX_CELL_SIZE / 2]), [
+    SCREEN_INTERVAL
+  ])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const cellSize2PxScale = useCallback(
+    d3.scaleLinear().domain([MIN_CELL_SIZE, MAX_CELL_SIZE]).range(SCREEN_INTERVAL), [
+    SCREEN_INTERVAL
+  ])
 
   useEffect(() => {
     const xAxisMovement = gestureState?.movement[COORDS.X]
@@ -39,7 +48,10 @@ const GestureInteractionManager = (props) => {
         return updatedCellSize
       })
     }
-  }, [gestureState])
+  }, [
+    gestureState,
+    px2CellSizeScale
+  ])
 
   const debouncedGestureStateUpdater = debounce((state) => {
     setGestureState(state)
@@ -69,7 +81,7 @@ const GestureInteractionManager = (props) => {
           ...bind()
         }
       >
-        {props.children}
+        {children}
       </div>
     </ConfigContext.Provider>
   )
