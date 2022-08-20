@@ -1,24 +1,22 @@
 import * as React from 'react'
-import { useContext } from 'react'
+import { ReactElement } from 'react'
 import trianglify from 'trianglify'
-import { ConfigContext } from '../../../modules/explorer/hooks/patternConfigContext'
 
-const TrianglifyRenderer = ({ config: { backgroundHeight, backgroundWidth } }) => {
-  const { cellSize } = useContext(ConfigContext)
+const TrianglifyRenderer = ({ config: { backgroundHeight, backgroundWidth } }): ReactElement => {
   const [canvas, setCanvas] = React.useState<HTMLCanvasElement | null>(null)
 
   React.useEffect(() => {
     const pattern = trianglify({
       width: backgroundWidth,
       height: backgroundHeight,
-      cellSize
+      // cellSize
     })
     pattern.toCanvas(canvas)
   }, [
     backgroundHeight,
     backgroundWidth,
     canvas,
-    cellSize
+    // cellSize
   ])
 
   return (

@@ -1,17 +1,20 @@
-import React from 'react'
-import GestureInteractionManager from '../interactionManager/GestureInteractionManager'
+import React, { ReactElement } from 'react'
 import HorizontalBar from '../horizontalBar/HorizontalBar'
+import useGestureManager from '../../hooks/useGestureManager'
+import { Renderer } from '../../models'
 
-const Explorer = ({ config, children }) => {
+const Explorer = ({ config, children }): ReactElement => {
+  const {
+    GestureManager,
+    gestureState,
+  } = useGestureManager()
+  const [ChildComponent]: [Renderer] = children
+
   return (
-    <GestureInteractionManager
-      config={config}
-    >
-      <HorizontalBar
-        config={config}
-      />
-      {children}
-    </GestureInteractionManager>
+    <GestureManager>
+      <HorizontalBar config={config}/>
+      <ChildComponent {...gestureState} />
+    </GestureManager>
   )
 }
 
