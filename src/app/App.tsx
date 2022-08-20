@@ -1,24 +1,23 @@
-import React from 'react'
-import { TrianglifyRenderer } from './renderers/trianglify'
-import { Explorer } from '../modules/explorer'
+import React, { ReactElement } from 'react'
+import Renderer from './renderers/Renderer'
+import {
+  Explorer,
+  ExplorerConfig
+} from '../modules/explorer'
 
-const App = () => {
+const App = (): ReactElement => {
   const windowPadding = 10
   const backgroundHeight = window.innerHeight - windowPadding
   const backgroundWidth = window.innerWidth - windowPadding
 
-  const config = { // FIXME: add its own type!!
+  const config: ExplorerConfig = {
     backgroundHeight,
     backgroundWidth
   }
 
   return (
-    <Explorer
-      config={config}
-    >
-      <TrianglifyRenderer
-        config={config}
-      />
+    <Explorer config={config}>
+      <Renderer config={config}/>
     </Explorer>
   )
 }
