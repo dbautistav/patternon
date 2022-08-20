@@ -13,12 +13,8 @@ const App = () => {
   }
 
   return (
-    <Explorer
-      config={config}
-    >
-      <TrianglifyRenderer
-        config={config}
-      />
+    <Explorer config={config}>
+      <TrianglifyRenderer config={config} />
     </Explorer>
   )
 }
